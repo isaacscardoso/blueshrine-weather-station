@@ -1,5 +1,6 @@
 name: weather_station_app
-description: A new Flutter project.
+description: An application that aims to display the climate state of different cities.
+  Using and consuming the OpenWeather API to get the data.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,10 +32,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
+  flutter_dotenv: ^5.0.2
+  http: ^0.13.5
+  provider: ^6.0.5
+  recase: ^4.1.0
 
 dev_dependencies:
   flutter_test:
