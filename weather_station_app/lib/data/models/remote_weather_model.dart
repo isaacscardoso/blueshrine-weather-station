@@ -23,15 +23,18 @@ class RemoteWeatherModel extends Equatable {
     required this.lastUpdated,
   });
 
-  factory RemoteWeatherModel.fromJson(Map json) {
+  factory RemoteWeatherModel.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> jsonWeather = json['weather'].single;
+    final Map<String, dynamic> jsonMain = json['main'];
+
     return RemoteWeatherModel(
       name: json['name'],
-      country: json['country'],
-      description: json['description'],
-      icon: json['icon'],
-      temperature: json['temperature'],
-      minimunTemperature: json['minimunTemperature'],
-      maximumTemperature: json['maximumTemperature'],
+      country: json['sys']['country'],
+      description: jsonWeather['description'],
+      icon: jsonWeather['icon'],
+      temperature: jsonMain['temperature'],
+      minimunTemperature: jsonMain['minimunTemperature'],
+      maximumTemperature: jsonMain['maximumTemperature'],
       lastUpdated: json['lastUpdated'],
     );
   }
