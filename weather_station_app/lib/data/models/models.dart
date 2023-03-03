@@ -1,0 +1,1 @@
+export './remote_direct_geocoding_model.dart';
