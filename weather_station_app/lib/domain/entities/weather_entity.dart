@@ -8,6 +8,7 @@ class WeatherEntity extends Equatable {
   final double temperature;
   final double minimunTemperature;
   final double maximumTemperature;
+  final DateTime currentTime;
   final DateTime lastUpdated;
 
   const WeatherEntity({
@@ -18,6 +19,7 @@ class WeatherEntity extends Equatable {
     required this.temperature,
     required this.minimunTemperature,
     required this.maximumTemperature,
+    required this.currentTime,
     required this.lastUpdated,
   });
 
@@ -31,6 +33,7 @@ class WeatherEntity extends Equatable {
       temperature,
       minimunTemperature,
       maximumTemperature,
+      currentTime,
       lastUpdated,
     ];
   }
