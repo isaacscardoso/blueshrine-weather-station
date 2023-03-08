@@ -10,5 +10,5 @@ class RemoteHttpConnectionParameters {
     return RemoteHttpConnectionParameters(cityName: parameters.cityName);
   }
 
-  Map<String, String> toJson() => {'name': cityName};
+  Map<String, String> toJson() => {'cityName': cityName};
 }
