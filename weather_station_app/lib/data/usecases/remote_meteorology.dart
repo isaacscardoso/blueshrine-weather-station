@@ -1,8 +1,8 @@
 import '../../domain/usecases/usecases.dart';
 import '../../domain/entities/entities.dart';
 
-import '../models/models.dart';
 import '../http/http.dart';
+import '../models/models.dart';
 import './usecases.dart';
 
 class RemoteMeteorology implements Meteorology {
