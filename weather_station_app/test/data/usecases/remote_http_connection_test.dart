@@ -13,8 +13,8 @@ import '../mocks/mocks.dart';
 void main() async {
   late HttpClientSpy httpClient;
   late String url;
-  late RemoteHttpConnection systemUnderTest;
-  late HttpConnectionParameters parameters;
+  late RemoteMeteorology systemUnderTest;
+  late MeteorologyParameters parameters;
   late Map apiResult;
   late ApiUrlFactory apiUrlFactory;
 
@@ -24,14 +24,14 @@ void main() async {
     httpClient = HttpClientSpy();
     apiUrlFactory = ApiUrlFactory();
     url = apiUrlFactory.mockedUrl();
-    systemUnderTest = RemoteHttpConnection(httpClient: httpClient, url: url);
+    systemUnderTest = RemoteMeteorology(httpClient: httpClient, url: url);
     parameters = ParametersFactory.connect();
     apiResult = ApiFactory.correctBody();
     httpClient.mockRequest(apiResult);
   });
 
   test('Should make the HTTP connection with the correct values.', () async {
-    await systemUnderTest.connect(parameters: parameters);
+    await systemUnderTest.getGeolocationData(parameters: parameters);
 
     verify(
       () => httpClient.request(

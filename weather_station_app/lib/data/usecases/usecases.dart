@@ -1,2 +1,2 @@
-export './remote_http_connection.dart';
-export './remote_http_connection_parameters.dart';
+export './remote_meteorology.dart';
+export './remote_meteorology_parameters.dart';

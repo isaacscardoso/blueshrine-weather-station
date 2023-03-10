@@ -5,20 +5,20 @@ import '../models/models.dart';
 import '../http/http.dart';
 import './usecases.dart';
 
-class RemoteHttpConnection implements HttpConnection {
+class RemoteMeteorology implements Meteorology {
   final HttpClient httpClient;
   final String url;
 
-  RemoteHttpConnection({
+  RemoteMeteorology({
     required this.httpClient,
     required this.url,
   });
 
   @override
-  Future<DirectGeocodingEntity> connect({
-    required HttpConnectionParameters parameters,
+  Future<DirectGeocodingEntity> getGeolocationData({
+    required MeteorologyParameters parameters,
   }) async {
-    final body = RemoteHttpConnectionParameters.fromDomain(parameters).toJson();
+    final body = RemoteMeteorologyParameters.fromDomain(parameters).toJson();
     try {
       final httpResponse = await httpClient.request(
         url: url,
