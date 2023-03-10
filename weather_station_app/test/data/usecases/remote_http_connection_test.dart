@@ -1,4 +1,5 @@
-import 'package:faker/faker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -9,16 +10,20 @@ import '../../infrastructure/mocks/mocks.dart';
 import '../../domain/mocks/mocks.dart';
 import '../mocks/mocks.dart';
 
-void main() {
+void main() async {
   late HttpClientSpy httpClient;
   late String url;
   late RemoteHttpConnection systemUnderTest;
   late HttpConnectionParameters parameters;
   late Map apiResult;
+  late ApiUrlFactory apiUrlFactory;
+
+  await dotenv.load(fileName: '.env');
 
   setUp(() {
     httpClient = HttpClientSpy();
-    url = faker.internet.httpUrl();
+    apiUrlFactory = ApiUrlFactory();
+    url = apiUrlFactory.mockedUrl();
     systemUnderTest = RemoteHttpConnection(httpClient: httpClient, url: url);
     parameters = ParametersFactory.connect();
     apiResult = ApiFactory.correctBody();
