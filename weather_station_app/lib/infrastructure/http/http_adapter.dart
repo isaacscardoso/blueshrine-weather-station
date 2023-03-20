@@ -11,7 +11,7 @@ class HttpAdapter implements HttpClient {
   HttpAdapter(this.client);
 
   @override
-  Future request({
+  Future<dynamic> request({
     required String url,
     required String method,
     Map? body,
@@ -25,25 +25,27 @@ class HttpAdapter implements HttpClient {
           });
 
     final String? jsonBody = body != null ? jsonEncode(body) : null;
-    late Map<String, dynamic> httpMethodsResponse;
+
+    Response response = Response('', 500);
+
+    late Future<Response>? futureResponse;
 
     try {
-      httpMethodsResponse = {
-        'post': client.post(
+      if (method == 'post') {
+        futureResponse = client.post(
           Uri.parse(url),
           headers: defaultHeaders,
           body: jsonBody,
-        ),
-        'get': client.get(
-          Uri.parse(url),
-          headers: defaultHeaders,
-        ),
-      };
+        );
+      } else if (method == 'get') {
+        futureResponse = client.get(Uri.parse(url), headers: defaultHeaders);
+      }
+      if (futureResponse != null) {
+        response = await futureResponse.timeout(const Duration(seconds: 10));
+      }
     } catch (error) {
       throw HttpError.internalServerError;
     }
-
-    final response = await httpMethodsResponse[method] ?? Response('', 500);
     return responseHandle(response);
   }
 }
