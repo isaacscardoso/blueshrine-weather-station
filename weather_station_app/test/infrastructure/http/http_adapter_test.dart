@@ -46,18 +46,20 @@ void main() {
   });
 
   group('post', () {
+    const String method = 'post';
+
     setUp(() {
       client.mockRequest(body: '{}', statusCode: 200);
     });
 
     test('Should call the method using the correct values. ', () async {
-      await systemUnderTest.request(url: url, method: 'post', body: body);
+      await systemUnderTest.request(url: url, method: method, body: body);
 
       verify(() => client.post(uri, headers: headers, body: bodyEncoded));
     });
 
     test('Should call the method without body.', () async {
-      await systemUnderTest.request(url: url, method: 'post');
+      await systemUnderTest.request(url: url, method: method);
 
       verify(() => client.post(any(), headers: any(named: 'headers')));
     });
@@ -65,7 +67,7 @@ void main() {
     test('Should return data if the method returns status 200', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 200);
 
-      final response = await systemUnderTest.request(url: url, method: 'post');
+      final response = await systemUnderTest.request(url: url, method: method);
 
       expect(response, body);
     });
@@ -73,7 +75,7 @@ void main() {
     test('Should return null if method returns status 200 without data', () async {
       client.mockRequest(body: '', statusCode: 200);
 
-      final response = await systemUnderTest.request(url: url, method: 'post');
+      final response = await systemUnderTest.request(url: url, method: method);
 
       expect(response, null);
     });
@@ -81,7 +83,7 @@ void main() {
     test('Should return null if method returns status 204 without data.', () async {
       client.mockRequest(body: '', statusCode: 204);
 
-      final response = await systemUnderTest.request(url: url, method: 'post');
+      final response = await systemUnderTest.request(url: url, method: method);
 
       expect(response, null);
     });
@@ -89,7 +91,7 @@ void main() {
     test('Should return null if method returns status 204 with data.', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 204);
 
-      final response = await systemUnderTest.request(url: url, method: 'post');
+      final response = await systemUnderTest.request(url: url, method: method);
 
       expect(response, null);
     });
@@ -97,7 +99,7 @@ void main() {
     test('Should return BadRequest if method returns status 400.', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 400);
 
-      final future = systemUnderTest.request(url: url, method: 'post');
+      final future = systemUnderTest.request(url: url, method: method);
 
       expect(future, throwsA(HttpError.badRequest));
     });
@@ -105,7 +107,7 @@ void main() {
     test('Should return NotFound if method returns status 404.', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 404);
 
-      final future = systemUnderTest.request(url: url, method: 'post');
+      final future = systemUnderTest.request(url: url, method: method);
 
       expect(future, throwsA(HttpError.notFound));
     });
@@ -113,7 +115,7 @@ void main() {
     test('Should return InternalServerError if method returns status 500.', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 500);
 
-      final future = systemUnderTest.request(url: url, method: 'post');
+      final future = systemUnderTest.request(url: url, method: method);
 
       expect(future, throwsA(HttpError.internalServerError));
     });
@@ -121,7 +123,7 @@ void main() {
     test('Should return InternalServerError if method returns unlisted status.', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 100);
 
-      final future = systemUnderTest.request(url: url, method: 'post');
+      final future = systemUnderTest.request(url: url, method: method);
 
       expect(future, throwsA(HttpError.internalServerError));
     });
@@ -129,7 +131,7 @@ void main() {
     test('Should return InternalServerError if an exception occurs in request.', () async {
       client.mockRequestError();
 
-      final future = systemUnderTest.request(url: url, method: 'post');
+      final future = systemUnderTest.request(url: url, method: method);
 
       expect(future, throwsA(HttpError.internalServerError));
     });
