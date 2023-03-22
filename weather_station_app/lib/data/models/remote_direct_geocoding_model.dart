@@ -19,7 +19,7 @@ class RemoteDirectGeocodingModel extends Equatable {
   });
 
   factory RemoteDirectGeocodingModel.fromJson(Map json) {
-    if (json.isNotEmpty) {
+    if (json.isNotEmpty && json['cod'] != '400') {
       return RemoteDirectGeocodingModel(
         name: json['name'],
         country: json['country'],
