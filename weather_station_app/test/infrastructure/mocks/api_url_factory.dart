@@ -11,17 +11,22 @@ class ApiUrlFactory {
     );
   }
 
-  Map<String, dynamic> _mockMakeQueryParameters() {
+  Map<String, dynamic> _mockMakeQueryParameters(
+    String? cityName,
+    String? limit,
+  ) {
     return {
-      'q': 'city',
-      'limit': 'limit',
+      'q': cityName ?? 'name',
+      'limit': limit ?? 'limit',
       'appid': dotenv.env['APPID'],
     };
   }
 
-  String mockedUrl() {
+  String mockedUrl({String? cityName, String? limit}) {
     String url = _mockMakeApiUrl();
     Uri uri = Uri.parse(url);
-    return uri.replace(queryParameters: _mockMakeQueryParameters()).toString();
+    return uri
+        .replace(queryParameters: _mockMakeQueryParameters(cityName, limit))
+        .toString();
   }
 }
