@@ -15,23 +15,24 @@ class RemoteWeatherRepository implements WeatherRepository {
 
   @override
   Future<WeatherEntity> fetchWeather(String cityName) async {
-    final MeteorologyParameters meteorologyParameters = MeteorologyParameters(
-      cityName: cityName,
-    );
+    final MeteorologyParameters meteorologyParameters =
+        MeteorologyParameters(cityName: cityName);
 
-    final DirectGeocodingEntity meteorology =
-        await remoteMeteorology.getGeolocationData(
-      parameters: meteorologyParameters,
-    );
+    try {
+      final DirectGeocodingEntity meteorology = await remoteMeteorology
+          .getGeolocationData(parameters: meteorologyParameters);
 
-    final GeolocationParameters geolocationParameters = GeolocationParameters(
-      latitude: meteorology.latitude,
-      longitude: meteorology.longitude,
-    );
+      final GeolocationParameters geolocationParameters = GeolocationParameters(
+        latitude: meteorology.latitude,
+        longitude: meteorology.longitude,
+      );
 
-    final WeatherEntity weatherEntity = await remoteGeolocation.getWeatherData(
-      parameters: geolocationParameters,
-    );
-    return weatherEntity;
+      final WeatherEntity weatherEntity = await remoteGeolocation
+          .getWeatherData(parameters: geolocationParameters);
+
+      return weatherEntity;
+    } catch (error) {
+      rethrow;
+    }
   }
 }

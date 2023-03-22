@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/http/http.dart';
 import '../../domain/entities/entities.dart';
 
 class RemoteWeatherModel extends Equatable {
@@ -25,21 +26,24 @@ class RemoteWeatherModel extends Equatable {
     required this.lastUpdated,
   });
 
-  factory RemoteWeatherModel.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> jsonWeather = json['weather'].single;
-    final Map<String, dynamic> jsonMain = json['main'];
+  factory RemoteWeatherModel.fromJson(Map json) {
+    if (json['cod'] != '400') {
+      final Map jsonWeather = json['weather'][0];
+      final Map jsonMain = json['main'];
 
-    return RemoteWeatherModel(
-      name: json['name'],
-      country: json['sys']['country'],
-      description: jsonWeather['description'],
-      icon: jsonWeather['icon'],
-      temperature: jsonMain['temperature'],
-      minimunTemperature: jsonMain['minimunTemperature'],
-      maximumTemperature: jsonMain['maximumTemperature'],
-      currentTime: json['timezone'],
-      lastUpdated: json['lastUpdated'],
-    );
+      return RemoteWeatherModel(
+        name: json['name'],
+        country: json['sys']['country'],
+        description: jsonWeather['description'],
+        icon: jsonWeather['icon'],
+        temperature: jsonMain['temperature'],
+        minimunTemperature: jsonMain['minimunTemperature'],
+        maximumTemperature: jsonMain['maximumTemperature'],
+        currentTime: json['timezone'],
+        lastUpdated: json['lastUpdated'],
+      );
+    }
+    throw HttpError.notFound;
   }
 
   WeatherEntity toWeatherEntity({

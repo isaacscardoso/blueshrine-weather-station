@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/http/http.dart';
 import '../../domain/entities/entities.dart';
 
 class RemoteDirectGeocodingModel extends Equatable {
@@ -18,13 +19,16 @@ class RemoteDirectGeocodingModel extends Equatable {
   });
 
   factory RemoteDirectGeocodingModel.fromJson(Map json) {
-    return RemoteDirectGeocodingModel(
-      name: json['name'],
-      country: json['country'],
-      state: json['state'],
-      latitude: json['lat'],
-      longitude: json['lon'],
-    );
+    if (json.isNotEmpty) {
+      return RemoteDirectGeocodingModel(
+        name: json['name'],
+        country: json['country'],
+        state: json['state'],
+        latitude: json['lat'],
+        longitude: json['lon'],
+      );
+    }
+    throw HttpError.notFound;
   }
 
   DirectGeocodingEntity toDirectGeocodingEntity() {
