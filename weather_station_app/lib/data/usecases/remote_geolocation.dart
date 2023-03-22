@@ -1,5 +1,6 @@
 import '../../domain/usecases/usecases.dart';
 import '../../domain/entities/entities.dart';
+import '../../domain/helpers/helpers.dart';
 
 import '../http/http.dart';
 import '../models/models.dart';
@@ -23,8 +24,10 @@ class RemoteGeolocation implements Geolocation {
         body: body,
       );
       return RemoteWeatherModel.fromJson(httpResponse).toWeatherEntity();
-    } on HttpError {
-      rethrow;
+    } on HttpError catch (error) {
+      throw error == HttpError.notFound
+          ? DomainError.invalidInputError
+          : DomainError.unexpected;
     }
   }
 }
