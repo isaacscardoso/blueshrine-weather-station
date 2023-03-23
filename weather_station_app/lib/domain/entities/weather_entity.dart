@@ -8,7 +8,8 @@ class WeatherEntity extends Equatable {
   final double temperature;
   final double minimunTemperature;
   final double maximumTemperature;
-  final DateTime currentTime;
+  //final DateTime currentTime;
+  final int currentTime;
   final DateTime lastUpdated;
 
   const WeatherEntity({

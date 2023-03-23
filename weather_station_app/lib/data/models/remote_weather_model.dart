@@ -11,7 +11,8 @@ class RemoteWeatherModel extends Equatable {
   final double temperature;
   final double minimunTemperature;
   final double maximumTemperature;
-  final DateTime currentTime;
+  //final DateTime currentTime;
+  final int currentTime;
   final DateTime lastUpdated;
 
   const RemoteWeatherModel({
@@ -36,11 +37,11 @@ class RemoteWeatherModel extends Equatable {
         country: json['sys']['country'],
         description: jsonWeather['description'],
         icon: jsonWeather['icon'],
-        temperature: jsonMain['temperature'],
-        minimunTemperature: jsonMain['minimunTemperature'],
-        maximumTemperature: jsonMain['maximumTemperature'],
+        temperature: jsonMain['temp'],
+        minimunTemperature: jsonMain['temp_min'],
+        maximumTemperature: jsonMain['temp_max'],
         currentTime: json['timezone'],
-        lastUpdated: json['lastUpdated'],
+        lastUpdated: DateTime.now(),
       );
     }
     throw HttpError.notFound;
@@ -54,7 +55,8 @@ class RemoteWeatherModel extends Equatable {
     double? temperature,
     double? minimunTemperature,
     double? maximumTemperature,
-    DateTime? currentTime,
+    //DateTime? currentTime,
+    int? currentTime,
     DateTime? lastUpdated,
   }) {
     return WeatherEntity(
