@@ -1,43 +1,52 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:test/test.dart';
-import 'package:faker/faker.dart';
 
 import 'package:weather_station_app/data/http/http.dart';
 import 'package:weather_station_app/data/usecases/usecases.dart';
 import 'package:weather_station_app/data/repositories/repositories.dart';
+import 'package:weather_station_app/domain/usecases/geolocation_parameters.dart';
+import 'package:weather_station_app/domain/usecases/meteorology_parameters.dart';
 
-import 'package:weather_station_app/domain/helpers/helpers.dart';
+import 'package:weather_station_app/factories/http/http.dart';
 
-import '../../infrastructure/mocks/mocks.dart';
-import '../mocks/mocks.dart';
-
-void main() {
-  late HttpClientSpy httpClient;
-  late String url;
-  late String cityName;
-  late Map apiResult;
-  late RemoteMeteorology remoteMeteorology;
-  late RemoteGeolocation remoteGeolocation;
+void main() async {
+  late HttpClient httpClient;
+  late RemoteMeteorology meteorology;
+  late RemoteGeolocation geolocation;
   late RemoteWeatherRepository systemUnderTest;
+  late String cityName;
+
+  await dotenv.load(fileName: '.env');
 
   setUp(() {
-    httpClient = HttpClientSpy();
-    url = faker.internet.httpUrl();
-    cityName = faker.address.city();
-    apiResult = ApiFactory.correctBody();
-    remoteMeteorology = RemoteMeteorology(httpClient: httpClient, url: url);
-    remoteGeolocation = RemoteGeolocation(httpClient: httpClient, url: url);
+    httpClient = makeHttpAdapter();
+
+    meteorology = RemoteMeteorology(httpClient: httpClient);
+    geolocation = RemoteGeolocation(httpClient: httpClient);
+
     systemUnderTest = RemoteWeatherRepository(
-      remoteMeteorology: remoteMeteorology,
-      remoteGeolocation: remoteGeolocation,
+      remoteMeteorology: meteorology,
+      remoteGeolocation: geolocation,
     );
-    httpClient.mockRequest(apiResult);
+
+    cityName = 'London';
   });
 
-  test('Should throw an InvalidInputError exception when the http request returns an NotFound.', () async {
-    httpClient.mockRequestError(HttpError.notFound);
+  test('Should return the correct geolocation values.', () async {
+    final geoData = await meteorology.getGeolocationData(
+      parameters: MeteorologyParameters(cityName: cityName),
+    );
 
-    final future = systemUnderTest.fetchWeather(cityName);
+    final weaData = await geolocation.getWeatherData(
+      parameters: GeolocationParameters(
+        latitude: geoData.latitude,
+        longitude: geoData.longitude,
+      ),
+    );
 
-    expect(future, throwsA(DomainError.invalidInputError));
+    final weather = await systemUnderTest.fetchWeather(cityName);
+
+    expect(weather.name, weaData.name);
   });
 }
