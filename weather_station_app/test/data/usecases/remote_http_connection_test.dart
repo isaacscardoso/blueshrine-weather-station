@@ -26,7 +26,7 @@ void main() async {
     httpClient = HttpClientSpy();
     apiUrlFactory = ApiUrlFactory();
     url = apiUrlFactory.mockedUrl();
-    systemUnderTest = RemoteMeteorology(httpClient: httpClient, url: url);
+    systemUnderTest = RemoteMeteorology(httpClient: httpClient);
     parameters = ParametersFactory.connect();
     apiResult = ApiFactory.correctBody();
     httpClient.mockRequest(apiResult);
