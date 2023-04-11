@@ -1,17 +1,15 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:http/http.dart';
 import 'package:test/test.dart';
 
-import 'package:weather_station_app/data/http/http.dart';
-import 'package:weather_station_app/data/usecases/usecases.dart';
-import 'package:weather_station_app/data/repositories/repositories.dart';
-import 'package:weather_station_app/domain/usecases/geolocation_parameters.dart';
-import 'package:weather_station_app/domain/usecases/meteorology_parameters.dart';
-
-import 'package:weather_station_app/factories/http/http.dart';
+import 'package:weather_station_app/layers/data/repositories/repositories.dart';
+import 'package:weather_station_app/layers/data/usecases/usecases.dart';
+import 'package:weather_station_app/layers/data/http/http.dart';
+import 'package:weather_station_app/layers/factories/http/http.dart';
 
 void main() async {
-  late HttpClient httpClient;
+  late IHttpClient httpClient;
   late RemoteMeteorology meteorology;
   late RemoteGeolocation geolocation;
   late RemoteWeatherRepository systemUnderTest;
@@ -20,29 +18,25 @@ void main() async {
   await dotenv.load(fileName: '.env');
 
   setUp(() {
-    httpClient = makeHttpAdapter();
+    httpClient = MakeHttpAdapter.of(Client());
 
     meteorology = RemoteMeteorology(httpClient: httpClient);
     geolocation = RemoteGeolocation(httpClient: httpClient);
 
     systemUnderTest = RemoteWeatherRepository(
-      remoteMeteorology: meteorology,
-      remoteGeolocation: geolocation,
+      meteorology: meteorology,
+      geolocation: geolocation,
     );
 
     cityName = 'London';
   });
 
   test('Should return the correct geolocation values.', () async {
-    final geoData = await meteorology.getGeolocationData(
-      parameters: MeteorologyParameters(cityName: cityName),
-    );
+    final geoData = await meteorology.getGeolocationData(cityName: cityName);
 
     final weaData = await geolocation.getWeatherData(
-      parameters: GeolocationParameters(
-        latitude: geoData.latitude,
-        longitude: geoData.longitude,
-      ),
+      latitude: geoData.latitude,
+      longitude: geoData.longitude,
     );
 
     final weather = await systemUnderTest.fetchWeather(cityName);

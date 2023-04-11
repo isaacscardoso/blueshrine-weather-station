@@ -1,16 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather_station_app/layers/factories/http/make_api_url.dart';
 
-class ApiUrlFactory {
-  static String get apiUrl {
-    return MakeApiUrl.of(
-      scheme: 'https',
-      subdomain: 'api',
-      path: 'geo/1.0/direct',
-    );
-  }
-
+class MakeUrlWithParameters {
   static String meteorology({
+    required String url,
     required String cityName,
     required String limit,
   }) {
@@ -19,11 +11,12 @@ class ApiUrlFactory {
       'limit': limit,
       'appid': dotenv.env['APPID'],
     };
-    Uri uri = Uri.parse(apiUrl);
+    Uri uri = Uri.parse(url);
     return uri.replace(queryParameters: parameters).toString();
   }
 
   static String geolocation({
+    required String url,
     required double latitude,
     required double longitude,
   }) {
@@ -32,7 +25,7 @@ class ApiUrlFactory {
       'lon': longitude.toString(),
       'appid': dotenv.env['APPID'],
     };
-    Uri uri = Uri.parse(apiUrl);
+    Uri uri = Uri.parse(url);
     return uri.replace(queryParameters: parameters).toString();
   }
 }
