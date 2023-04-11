@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/dart,flutter,visualstudiocode,androidstudio
-# Edit at https://www.toptal.com/developers/gitignore?templates=dart,flutter,visualstudiocode,androidstudio
+# Created by https://www.toptal.com/developers/gitignore/api/dart,flutter,androidstudio,visualstudiocode,firebase
+# Edit at https://www.toptal.com/developers/gitignore?templates=dart,flutter,androidstudio,visualstudiocode,firebase
 
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
@@ -33,6 +33,15 @@ doc/api/
 ### Dart Patch ###
 # dotenv environment variables file
 .env
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
 
 ### Flutter ###
 # Flutter/Dart/Pub related
@@ -243,6 +252,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/dart,flutter,visualstudiocode,androidstudio
-
-*.env
+# End of https://www.toptal.com/developers/gitignore/api/dart,flutter,androidstudio,visualstudiocode,firebase
