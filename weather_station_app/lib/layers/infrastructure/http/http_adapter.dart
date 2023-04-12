@@ -27,7 +27,6 @@ class HttpAdapter implements IHttpClient {
     try {
       if (method == 'get') {
         futureResponse = _client.get(Uri.parse(url), headers: defaultHeaders);
-        print(url);
       }
       if (futureResponse != null) {
         response = await futureResponse.timeout(const Duration(seconds: 10));
