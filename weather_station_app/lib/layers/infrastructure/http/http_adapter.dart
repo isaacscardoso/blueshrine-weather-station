@@ -12,7 +12,6 @@ class HttpAdapter implements IHttpClient {
   Future<dynamic> request({
     required String url,
     required String method,
-    Map? body,
     Map? headers,
   }) async {
     final Map<String, String> defaultHeaders =
@@ -23,8 +22,7 @@ class HttpAdapter implements IHttpClient {
           });
 
     Response response = Response('', 500);
-
-    late Future<Response>? futureResponse;
+    Future<Response>? futureResponse;
 
     try {
       if (method == 'get') {

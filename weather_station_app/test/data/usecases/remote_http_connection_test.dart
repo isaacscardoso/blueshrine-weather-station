@@ -32,12 +32,7 @@ void main() async {
   test('Should make the HTTP connection with the correct values.', () async {
     await systemUnderTest.getGeolocationData(cityName: cityName);
 
-    verify(
-      () => httpClient.request(
-        url: url,
-        method: 'get',
-      ),
-    );
+    verify(() => httpClient.request(url: url, method: 'get'));
   });
 
   test('Should throw an Unexpected exception when the http request returns an BadRequest.', () async {
