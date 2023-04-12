@@ -33,12 +33,12 @@ void main() async {
     );
     registerFallbackValue(Uri.parse(urlMetereology));
 
-    // urlGeolocation = ApiUrlFactory.geolocation(
-    //   latitude: faker.geo.latitude(),
-    //   longitude: faker.geo.longitude(),
-    // );
-    //
-    // registerFallbackValue(urlGeolocation);
+    urlGeolocation = ApiUrlFactory.geolocation(
+      latitude: -20.4648425,
+      longitude: -45.4266753,
+    );
+
+    registerFallbackValue(Uri.parse(urlGeolocation));
   });
 
   test('', () async {
@@ -48,5 +48,16 @@ void main() async {
       url: urlMetereology,
       method: 'get',
     );
+    print(response);
+  });
+
+  test('', () async {
+    client.mockRequest(statusCode: 200);
+
+    final response = await systemUnderTest.request(
+      url: urlGeolocation,
+      method: 'get',
+    );
+    print(response);
   });
 }
