@@ -1,5 +1,8 @@
 import '../entities/entities.dart';
 
 abstract class IMeteorologyUsecase {
-  Future<DirectGeocodingEntity> getGeolocationData({required String cityName});
+  Future<WeatherEntity> getWeatherData({
+    required double latitude,
+    required double longitude,
+  });
 }
