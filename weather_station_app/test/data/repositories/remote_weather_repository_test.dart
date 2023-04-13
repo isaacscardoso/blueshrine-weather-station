@@ -34,7 +34,7 @@ void main() async {
   test('Should return the correct geolocation values.', () async {
     final geoData = await meteorology.getGeolocationData(cityName: cityName);
 
-    final weaData = await geolocation.getWeatherData(
+    final weaData = await geolocation.getMeteorologyData(
       latitude: geoData.latitude,
       longitude: geoData.longitude,
     );

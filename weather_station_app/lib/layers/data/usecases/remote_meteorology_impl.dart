@@ -13,7 +13,7 @@ class RemoteMeteorologyImpl implements IMeteorologyUsecase {
   RemoteMeteorologyImpl({required this.httpClient});
 
   @override
-  Future<WeatherEntity> getWeatherData({
+  Future<WeatherEntity> getMeteorologyData({
     required double latitude,
     required double longitude,
   }) async {

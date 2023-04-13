@@ -19,7 +19,7 @@ class RemoteWeatherRepositoryImpl implements IWeatherRepository {
         cityName: cityName,
       );
 
-      final WeatherEntity weatherEntity = await geolocation.getWeatherData(
+      final WeatherEntity weatherEntity = await geolocation.getMeteorologyData(
         latitude: geocoding.latitude,
         longitude: geocoding.longitude,
       );
