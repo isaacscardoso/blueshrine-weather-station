@@ -1,8 +1,7 @@
 import '../../domain/entities/entities.dart';
-import '../../domain/usecases/usecases.dart';
 import '../../domain/helpers/helpers.dart';
+import '../../domain/usecases/usecases.dart';
 
-import '../../factories/api/constants.dart';
 import '../../factories/http/http.dart';
 
 import '../models/models.dart';
@@ -14,30 +13,25 @@ class RemoteMeteorologyImpl implements IMeteorologyUsecase {
   RemoteMeteorologyImpl({required this.httpClient});
 
   @override
-  Future<DirectGeocodingEntity> getGeolocationData({
-    required String cityName,
+  Future<WeatherEntity> getWeatherData({
+    required double latitude,
+    required double longitude,
   }) async {
     final String apiUrl = MakeApiUrl.of(
       scheme: 'https',
       subdomain: 'api',
-      path: 'geo/1.0/direct',
+      path: 'data/2.5/weather',
     );
 
     final String url = MakeUrlWithParameters.meteorology(
       url: apiUrl,
-      cityName: cityName,
-      limit: AppParams.limit,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     try {
-      final List<dynamic> httpResponse = await httpClient.request(
-        url: url,
-        method: 'get',
-      );
-
-      return RemoteDirectGeocodingModel.fromJson(
-        httpResponse,
-      ).toDirectGeocodingEntity();
+      final httpResponse = await httpClient.request(url: url, method: 'get');
+      return RemoteWeatherModel.fromJson(httpResponse).toWeatherEntity();
     } on HttpError catch (error) {
       throw error == HttpError.notFound
           ? DomainError.invalidInputError

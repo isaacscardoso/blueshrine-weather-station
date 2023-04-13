@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MakeUrlWithParameters {
-  static String meteorology({
+  static String geolocation({
     required String url,
     required String cityName,
     required String limit,
@@ -15,7 +15,7 @@ class MakeUrlWithParameters {
     return uri.replace(queryParameters: parameters).toString();
   }
 
-  static String geolocation({
+  static String meteorology({
     required String url,
     required double latitude,
     required double longitude,
