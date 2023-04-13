@@ -1,2 +1,2 @@
-export './igeolocation.dart';
-export './imeteorology.dart';
+export './igeolocation_usecase.dart';
+export './imeteorology_usecase.dart';

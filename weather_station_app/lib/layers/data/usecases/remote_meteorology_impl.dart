@@ -8,10 +8,10 @@ import '../../factories/http/http.dart';
 import '../models/models.dart';
 import '../http/http.dart';
 
-class RemoteMeteorology implements IMeteorology {
+class RemoteMeteorologyImpl implements IMeteorologyUsecase {
   final IHttpClient httpClient;
 
-  RemoteMeteorology({required this.httpClient});
+  RemoteMeteorologyImpl({required this.httpClient});
 
   @override
   Future<DirectGeocodingEntity> getGeolocationData({

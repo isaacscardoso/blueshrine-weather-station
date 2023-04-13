@@ -1,2 +1,2 @@
-export './remote_geolocation.dart';
-export './remote_meteorology.dart';
+export './remote_geolocation_impl.dart';
+export './remote_meteorology_impl.dart';

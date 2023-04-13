@@ -13,7 +13,7 @@ import '../mocks/mocks.dart';
 
 void main() async {
   late HttpClientSpy httpClient;
-  late RemoteMeteorology systemUnderTest;
+  late RemoteMeteorologyImpl systemUnderTest;
   late List<Map<String, dynamic>> apiResult;
   late String url;
   late String cityName;
@@ -22,7 +22,7 @@ void main() async {
 
   setUp(() {
     httpClient = HttpClientSpy();
-    systemUnderTest = RemoteMeteorology(httpClient: httpClient);
+    systemUnderTest = RemoteMeteorologyImpl(httpClient: httpClient);
     cityName = faker.address.city();
     url = ApiUrlFactory.meteorology(cityName: cityName, limit: '1');
     apiResult = ApiFactory.correctBody();

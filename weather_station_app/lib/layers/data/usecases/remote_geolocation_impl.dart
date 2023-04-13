@@ -7,10 +7,10 @@ import '../../factories/http/http.dart';
 import '../models/models.dart';
 import '../http/http.dart';
 
-class RemoteGeolocation implements IGeolocation {
+class RemoteGeolocationImpl implements IGeolocationUsecase {
   final IHttpClient httpClient;
 
-  RemoteGeolocation({required this.httpClient});
+  RemoteGeolocationImpl({required this.httpClient});
 
   @override
   Future<WeatherEntity> getWeatherData({

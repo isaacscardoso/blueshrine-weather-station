@@ -2,11 +2,11 @@ import '../../domain/usecases/usecases.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/repositories/repositories.dart';
 
-class RemoteWeatherRepository implements IWeatherRepository {
-  final IMeteorology meteorology;
-  final IGeolocation geolocation;
+class RemoteWeatherRepositoryImpl implements IWeatherRepository {
+  final IMeteorologyUsecase meteorology;
+  final IGeolocationUsecase geolocation;
 
-  RemoteWeatherRepository({
+  RemoteWeatherRepositoryImpl({
     required this.meteorology,
     required this.geolocation,
   });
