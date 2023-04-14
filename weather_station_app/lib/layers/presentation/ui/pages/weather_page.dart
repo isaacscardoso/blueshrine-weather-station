@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/weather/weather.dart';
 import '../utils/utils.dart';
 import './pages.dart';
 
@@ -11,6 +13,18 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
+  _fetchWeather() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<WeatherProvider>().fetchWeather('Formiga');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWeather();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
