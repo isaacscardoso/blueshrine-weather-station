@@ -7,10 +7,10 @@ import '../../factories/http/http.dart';
 import '../models/models.dart';
 import '../http/http.dart';
 
-class RemoteMeteorologyImpl implements IMeteorologyUsecase {
+class RemoteMeteorologyUsecaseImpl implements IMeteorologyUsecase {
   final IHttpClient httpClient;
 
-  RemoteMeteorologyImpl({required this.httpClient});
+  RemoteMeteorologyUsecaseImpl({required this.httpClient});
 
   @override
   Future<WeatherEntity> getMeteorologyData({

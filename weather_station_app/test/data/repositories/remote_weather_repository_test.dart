@@ -10,8 +10,8 @@ import 'package:weather_station_app/layers/factories/http/http.dart';
 
 void main() async {
   late IHttpClient httpClient;
-  late RemoteGeolocationImpl meteorology;
-  late RemoteMeteorologyImpl geolocation;
+  late RemoteGeolocationUsecaseImpl meteorology;
+  late RemoteMeteorologyUsecaseImpl geolocation;
   late RemoteWeatherRepositoryImpl systemUnderTest;
   late String cityName;
 
@@ -20,12 +20,12 @@ void main() async {
   setUp(() {
     httpClient = MakeHttpAdapter.of(Client());
 
-    meteorology = RemoteGeolocationImpl(httpClient: httpClient);
-    geolocation = RemoteMeteorologyImpl(httpClient: httpClient);
+    meteorology = RemoteGeolocationUsecaseImpl(httpClient: httpClient);
+    geolocation = RemoteMeteorologyUsecaseImpl(httpClient: httpClient);
 
     systemUnderTest = RemoteWeatherRepositoryImpl(
-      meteorology: meteorology,
-      geolocation: geolocation,
+      geolocationUsecase: meteorology,
+      meteorologyUsecase: geolocation,
     );
 
     cityName = 'London';

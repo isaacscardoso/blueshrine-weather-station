@@ -8,10 +8,10 @@ import '../../factories/http/http.dart';
 import '../models/models.dart';
 import '../http/http.dart';
 
-class RemoteGeolocationImpl implements IGeolocationUsecase {
+class RemoteGeolocationUsecaseImpl implements IGeolocationUsecase {
   final IHttpClient httpClient;
 
-  RemoteGeolocationImpl({required this.httpClient});
+  RemoteGeolocationUsecaseImpl({required this.httpClient});
 
   @override
   Future<DirectGeocodingEntity> getGeolocationData({

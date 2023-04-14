@@ -3,23 +3,24 @@ import '../../domain/entities/entities.dart';
 import '../../domain/repositories/repositories.dart';
 
 class RemoteWeatherRepositoryImpl implements IWeatherRepository {
-  final IGeolocationUsecase meteorology;
-  final IMeteorologyUsecase geolocation;
+  final IGeolocationUsecase geolocationUsecase;
+  final IMeteorologyUsecase meteorologyUsecase;
 
   RemoteWeatherRepositoryImpl({
-    required this.meteorology,
-    required this.geolocation,
+    required this.geolocationUsecase,
+    required this.meteorologyUsecase,
   });
 
   @override
   Future<WeatherEntity> fetchWeather(String cityName) async {
     try {
       final DirectGeocodingEntity geocoding =
-          await meteorology.getGeolocationData(
+          await geolocationUsecase.getGeolocationData(
         cityName: cityName,
       );
 
-      final WeatherEntity weatherEntity = await geolocation.getMeteorologyData(
+      final WeatherEntity weatherEntity =
+          await meteorologyUsecase.getMeteorologyData(
         latitude: geocoding.latitude,
         longitude: geocoding.longitude,
       );
