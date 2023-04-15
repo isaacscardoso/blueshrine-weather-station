@@ -6,6 +6,10 @@ class WeatherState extends Equatable {
 
   const WeatherState({required this.status, this.weather});
 
+  factory WeatherState.initial() {
+    return const WeatherState(status: WeatherStatus.initial);
+  }
+
   WeatherState copyWith({WeatherStatus? status, WeatherEntity? weather}) {
     return WeatherState(
       status: status ?? this.status,

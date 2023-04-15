@@ -13,16 +13,16 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  _fetchWeather() {
+  _initWeather() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<WeatherProvider>().fetchWeather('Formiga');
+      context.read<WeatherProvider>();
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _fetchWeather();
+    _initWeather();
   }
 
   @override
