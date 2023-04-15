@@ -12,6 +12,22 @@ class RemoteWeatherRepositoryImpl implements IWeatherRepository {
   });
 
   @override
+  Future<WeatherEntity> initWeather({
+    required double latitude,
+    required double longitude,
+  }) async {
+    try {
+      final WeatherEntity weather = await meteorologyUsecase.getMeteorologyData(
+        latitude: latitude,
+        longitude: longitude,
+      );
+      return weather;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<WeatherEntity> fetchWeather(String cityName) async {
     try {
       final DirectGeocodingEntity geocoding =
@@ -19,13 +35,12 @@ class RemoteWeatherRepositoryImpl implements IWeatherRepository {
         cityName: cityName,
       );
 
-      final WeatherEntity weatherEntity =
-          await meteorologyUsecase.getMeteorologyData(
+      final WeatherEntity weather = await meteorologyUsecase.getMeteorologyData(
         latitude: geocoding.latitude,
         longitude: geocoding.longitude,
       );
 
-      return weatherEntity;
+      return weather;
     } catch (error) {
       rethrow;
     }
