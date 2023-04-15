@@ -16,10 +16,10 @@ class WeatherProvider with ChangeNotifier {
 
   WeatherProvider({required this.repository}) {
     _state = WeatherState.initial();
-    initWeather();
+    _initWeather();
   }
 
-  Future initWeather() async {
+  Future<void> _initWeather() async {
     _state = _state.copyWith(status: WeatherStatus.loading);
     notifyListeners();
     try {
