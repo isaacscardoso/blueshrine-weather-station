@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './layers/factories/http/http.dart';
@@ -12,6 +13,12 @@ import './layers/data/usecases/usecases.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
+  LocationPermission permission = await Geolocator.checkPermission();
+
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
+
   runApp(const WeatherApp());
 }
 
