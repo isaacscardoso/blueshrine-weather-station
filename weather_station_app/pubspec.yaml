@@ -42,6 +42,8 @@ dependencies:
   recase:
   flutter_launcher_icons:
   geolocator: ^9.0.2
+  flutter_state_notifier: ^0.7.3
+  state_notifier: ^0.7.2+1
 
 dev_dependencies:
   flutter_test:
