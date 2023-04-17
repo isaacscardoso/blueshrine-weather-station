@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/weather/weather.dart';
 import '../../validators/validators.dart';
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 import './pages.dart';
 
 class SearchPage extends StatefulWidget {
@@ -24,7 +24,8 @@ class _SearchPageState extends State<SearchPage> {
     });
     if (_formularyKey.currentState!.validate()) {
       _formularyKey.currentState!.save();
-      context.read<WeatherProvider>().fetchWeather(_cityName!);
+      _cityName = _cityName!.trim();
+      context.read<WeatherProvider>().fetchWeatherData(location: _cityName!);
       Navigator.of(context).pop(_cityName);
     }
   }
@@ -63,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   validator: (value) => SearchFormularyValidator.verify(value),
-                  onSaved: (value) => _cityName = value?.trim(),
+                  onSaved: (value) => _cityName = value,
                 ),
                 const SizedBox(height: 24.0),
                 ElevatedButton(

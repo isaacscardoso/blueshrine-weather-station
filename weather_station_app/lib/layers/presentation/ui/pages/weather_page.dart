@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/weather/weather.dart';
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 import './pages.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   _initWeather() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<WeatherProvider>();
+      context.read<WeatherProvider>().initWeatherData();
     });
   }
 

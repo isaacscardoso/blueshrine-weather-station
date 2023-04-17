@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:geolocator/geolocator.dart';
 
 import '../../domain/repositories/repositories.dart';
@@ -8,18 +7,20 @@ import '../../domain/entities/entities.dart';
 
 import '../enums/enums.dart';
 
+import './iweather_provider.dart';
+
 part './weather_state.dart';
 
-class WeatherProvider with ChangeNotifier {
+class WeatherProvider with ChangeNotifier implements IWeatherProvider {
   final IWeatherRepository repository;
   late WeatherState _state;
 
   WeatherProvider({required this.repository}) {
     _state = WeatherState.initial();
-    _initWeather();
   }
 
-  Future<void> _initWeather() async {
+  @override
+  Future<void> initWeatherData() async {
     _state = _state.copyWith(status: WeatherStatus.loading);
     notifyListeners();
     try {
@@ -39,11 +40,12 @@ class WeatherProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchWeather(String cityName) async {
+  @override
+  Future<void> fetchWeatherData({required String location}) async {
     _state = _state.copyWith(status: WeatherStatus.loading);
     notifyListeners();
     try {
-      final WeatherEntity weather = await repository.fetchWeather(cityName);
+      final WeatherEntity weather = await repository.fetchWeather(location);
       _state = _state.copyWith(status: WeatherStatus.loaded, weather: weather);
       print('City Founded: $weather');
       notifyListeners();
