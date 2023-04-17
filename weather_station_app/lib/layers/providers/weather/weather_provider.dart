@@ -13,15 +13,15 @@ part './weather_state.dart';
 
 class WeatherProvider with ChangeNotifier implements IWeatherProvider {
   final IWeatherRepository repository;
-  late WeatherState _state;
+  late WeatherState state;
 
   WeatherProvider({required this.repository}) {
-    _state = WeatherState.initial();
+    state = WeatherState.initial();
   }
 
   @override
   Future<void> initWeatherData() async {
-    _state = _state.copyWith(status: WeatherStatus.loading);
+    state = state.copyWith(status: WeatherStatus.loading);
     notifyListeners();
     try {
       final Position position = await Geolocator.getCurrentPosition(
@@ -31,8 +31,8 @@ class WeatherProvider with ChangeNotifier implements IWeatherProvider {
         latitude: position.latitude,
         longitude: position.longitude,
       );
-      _state = _state.copyWith(status: WeatherStatus.loaded, weather: weather);
-      print('State 1: $_state');
+      state = state.copyWith(status: WeatherStatus.loaded, weather: weather);
+      print('State 1: $state');
       notifyListeners();
     } catch (error) {
       notifyListeners();
@@ -42,11 +42,11 @@ class WeatherProvider with ChangeNotifier implements IWeatherProvider {
 
   @override
   Future<void> fetchWeatherData({required String location}) async {
-    _state = _state.copyWith(status: WeatherStatus.loading);
+    state = state.copyWith(status: WeatherStatus.loading);
     notifyListeners();
     try {
       final WeatherEntity weather = await repository.fetchWeather(location);
-      _state = _state.copyWith(status: WeatherStatus.loaded, weather: weather);
+      state = state.copyWith(status: WeatherStatus.loaded, weather: weather);
       print('City Founded: $weather');
       notifyListeners();
     } catch (error) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../../providers/weather/weather.dart';
+import '../../widgets/widgets.dart';
 import '../../utils/utils.dart';
 import './pages.dart';
 
@@ -13,20 +12,6 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  String? _cityName = '';
-
-  _initWeather() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<WeatherProvider>().initWeatherData();
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initWeather();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +19,10 @@ class _WeatherPageState extends State<WeatherPage> {
         title: const Text('Weather'),
         actions: <Widget>[
           IconButton(
-            onPressed: () async {
-              final name = await navigateToPage(context, const SearchPage());
-              setState(() {
-                _cityName = name;
-              });
-            },
+            onPressed: () async => await navigateToPage(
+              context,
+              const SearchPage(),
+            ),
             icon: const Icon(Icons.search),
           ),
           IconButton(
@@ -48,10 +31,8 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Center(
-          child: Text('City Name: $_cityName'),
-        ),
+      body: const SafeArea(
+        child: WeatherData(),
       ),
     );
   }

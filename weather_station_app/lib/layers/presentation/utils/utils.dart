@@ -1,1 +1,1 @@
-export 'navigate_to_page.dart';
+export './navigate_to_page.dart';
