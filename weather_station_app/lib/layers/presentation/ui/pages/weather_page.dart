@@ -13,7 +13,7 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  late String? _cityName = '';
+  String? _cityName = '';
 
   _initWeather() {
     WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_station_app/layers/providers/weather/weather.dart';
 
+import '../../../providers/weather/weather.dart';
 import '../../validators/validators.dart';
 import '../utils/utils.dart';
 import './pages.dart';
