@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 import '../http/http.dart';
 import '../../domain/entities/entities.dart';
 
-class RemoteDirectGeocodingModel extends Equatable {
+class DirectGeocodingModel extends Equatable {
   final String name;
   final String country;
   final String state;
   final double latitude;
   final double longitude;
 
-  const RemoteDirectGeocodingModel({
+  const DirectGeocodingModel({
     required this.name,
     required this.country,
     required this.state,
@@ -18,10 +18,10 @@ class RemoteDirectGeocodingModel extends Equatable {
     required this.longitude,
   });
 
-  factory RemoteDirectGeocodingModel.fromJson(List<dynamic> geoData) {
+  factory DirectGeocodingModel.fromJson(List<dynamic> geoData) {
     if (geoData.isNotEmpty) {
       Map<String, dynamic> json = geoData[0];
-      return RemoteDirectGeocodingModel(
+      return DirectGeocodingModel(
         name: json['name'],
         country: json['country'],
         state: json['state'] ?? '',

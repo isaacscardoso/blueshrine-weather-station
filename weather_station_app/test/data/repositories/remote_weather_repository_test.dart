@@ -10,9 +10,9 @@ import 'package:weather_station_app/layers/factories/http/http.dart';
 
 void main() async {
   late IHttpClient httpClient;
-  late RemoteGeolocationUsecaseImpl meteorology;
-  late RemoteMeteorologyUsecaseImpl geolocation;
-  late RemoteWeatherRepositoryImpl systemUnderTest;
+  late GeolocationUsecaseImpl meteorology;
+  late MeteorologyUsecaseImpl geolocation;
+  late WeatherRepositoryImpl systemUnderTest;
   late String cityName;
 
   await dotenv.load(fileName: '.env');
@@ -20,10 +20,10 @@ void main() async {
   setUp(() {
     httpClient = MakeHttpAdapter.of(Client());
 
-    meteorology = RemoteGeolocationUsecaseImpl(httpClient: httpClient);
-    geolocation = RemoteMeteorologyUsecaseImpl(httpClient: httpClient);
+    meteorology = GeolocationUsecaseImpl(httpClient: httpClient);
+    geolocation = MeteorologyUsecaseImpl(httpClient: httpClient);
 
-    systemUnderTest = RemoteWeatherRepositoryImpl(
+    systemUnderTest = WeatherRepositoryImpl(
       geolocationUsecase: meteorology,
       meteorologyUsecase: geolocation,
     );

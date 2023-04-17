@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/weather/weather.dart';
-import '../../providers/weather/enums/enums.dart';
 
 class WeatherData extends StatefulWidget {
   const WeatherData({super.key});
@@ -12,21 +11,23 @@ class WeatherData extends StatefulWidget {
 }
 
 class _WeatherDataState extends State<WeatherData> {
-  _initWeather() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<WeatherProvider>().initWeatherData();
-    });
-  }
+  late final WeatherProvider _weatherProvider;
 
   @override
   void initState() {
     super.initState();
-    _initWeather();
+    _weatherProvider = context.read<WeatherProvider>();
+    _weatherProvider.initWeatherData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final weather = context.watch<WeatherProvider>().state.weather;
-    return Text('Nome: ${weather?.name} - País: ${weather?.country}');
+    final weatherState = context.watch<WeatherState>().weather;
+    return Text('Nome: ${weatherState?.name} - País: ${weatherState?.country}');
   }
 }

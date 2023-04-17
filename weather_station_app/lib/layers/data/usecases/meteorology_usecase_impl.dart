@@ -7,10 +7,10 @@ import '../../factories/http/http.dart';
 import '../models/models.dart';
 import '../http/http.dart';
 
-class RemoteMeteorologyUsecaseImpl implements IMeteorologyUsecase {
+class MeteorologyUsecaseImpl implements IMeteorologyUsecase {
   final IHttpClient httpClient;
 
-  RemoteMeteorologyUsecaseImpl({required this.httpClient});
+  MeteorologyUsecaseImpl({required this.httpClient});
 
   @override
   Future<WeatherEntity> getMeteorologyData({
@@ -31,7 +31,7 @@ class RemoteMeteorologyUsecaseImpl implements IMeteorologyUsecase {
 
     try {
       final httpResponse = await httpClient.request(url: url, method: 'get');
-      return RemoteWeatherModel.fromJson(httpResponse).toWeatherEntity();
+      return WeatherModel.fromJson(httpResponse).toWeatherEntity();
     } on HttpError catch (error) {
       throw error == HttpError.notFound
           ? DomainError.invalidInputError

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../http/http.dart';
 import '../../domain/entities/entities.dart';
 
-class RemoteWeatherModel extends Equatable {
+class WeatherModel extends Equatable {
   final String name;
   final String country;
   final String description;
@@ -15,7 +15,7 @@ class RemoteWeatherModel extends Equatable {
   final int currentTime;
   final DateTime lastUpdated;
 
-  const RemoteWeatherModel({
+  const WeatherModel({
     required this.name,
     required this.country,
     required this.description,
@@ -27,12 +27,12 @@ class RemoteWeatherModel extends Equatable {
     required this.lastUpdated,
   });
 
-  factory RemoteWeatherModel.fromJson(Map json) {
+  factory WeatherModel.fromJson(Map json) {
     if (json['cod'] != '400') {
       final Map jsonWeather = json['weather'][0];
       final Map jsonMain = json['main'];
 
-      return RemoteWeatherModel(
+      return WeatherModel(
         name: json['name'],
         country: json['sys']['country'],
         description: jsonWeather['description'],

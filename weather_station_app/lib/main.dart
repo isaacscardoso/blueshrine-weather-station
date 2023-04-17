@@ -1,6 +1,7 @@
-import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
+
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -29,21 +30,19 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<RemoteWeatherRepositoryImpl>(
-          create: (context) => RemoteWeatherRepositoryImpl(
-            geolocationUsecase: RemoteGeolocationUsecaseImpl(
+        Provider<WeatherRepositoryImpl>(
+          create: (context) => WeatherRepositoryImpl(
+            geolocationUsecase: GeolocationUsecaseImpl(
               httpClient: MakeHttpAdapter.call,
             ),
-            meteorologyUsecase: RemoteMeteorologyUsecaseImpl(
+            meteorologyUsecase: MeteorologyUsecaseImpl(
               httpClient: MakeHttpAdapter.call,
             ),
           ),
         ),
-        ChangeNotifierProvider<WeatherProvider>(
-          create: (context) => WeatherProvider(
-            repository: context.read<RemoteWeatherRepositoryImpl>(),
-          ),
-        )
+        StateNotifierProvider<WeatherProvider, WeatherState>(
+          create: (context) => WeatherProvider(),
+        ),
       ],
       child: MaterialApp(
         home: const WeatherPage(),

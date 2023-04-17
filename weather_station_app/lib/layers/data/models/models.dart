@@ -1,2 +1,2 @@
-export './remote_direct_geocoding_model.dart';
-export './remote_weather_model.dart';
+export './direct_geocoding_model.dart';
+export './weather_model.dart';
