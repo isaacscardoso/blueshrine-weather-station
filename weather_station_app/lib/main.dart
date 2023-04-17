@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './layers/factories/http/http.dart';
 import './layers/providers/weather/weather.dart';
+import './layers/providers/temp_settings/temp_settings.dart';
 import './layers/presentation/ui/pages/pages.dart';
 
 import './layers/data/repositories/repositories.dart';
@@ -40,8 +41,11 @@ class WeatherApp extends StatelessWidget {
             ),
           ),
         ),
-        StateNotifierProvider<WeatherProvider, WeatherState>(
-          create: (context) => WeatherProvider(),
+        StateNotifierProvider<WeatherProviderImpl, WeatherState>(
+          create: (context) => WeatherProviderImpl(),
+        ),
+        StateNotifierProvider<TempSettingsProviderImpl, TempSettingsState>(
+          create: (context) => TempSettingsProviderImpl(),
         ),
       ],
       child: MaterialApp(

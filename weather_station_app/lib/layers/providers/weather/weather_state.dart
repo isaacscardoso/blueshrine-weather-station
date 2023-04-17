@@ -1,4 +1,4 @@
-part of './weather_provider.dart';
+part of './weather_provider_impl.dart';
 
 class WeatherState extends Equatable {
   final WeatherStatus status;

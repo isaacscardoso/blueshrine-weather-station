@@ -11,8 +11,8 @@ import './iweather_provider.dart';
 
 part './weather_state.dart';
 
-class WeatherProvider extends StateNotifier<WeatherState> with LocatorMixin implements IWeatherProvider {
-  WeatherProvider() : super(WeatherState.initial());
+class WeatherProviderImpl extends StateNotifier<WeatherState> with LocatorMixin implements IWeatherProvider {
+  WeatherProviderImpl() : super(WeatherState.initial());
 
   @override
   Future<void> initWeatherData() async {

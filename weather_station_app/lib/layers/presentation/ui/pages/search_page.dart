@@ -25,7 +25,7 @@ class _SearchPageState extends State<SearchPage> {
     if (_formularyKey.currentState!.validate()) {
       _formularyKey.currentState!.save();
       _cityName = _cityName!.trim();
-      context.read<WeatherProvider>().fetchWeatherData(location: _cityName!);
+      context.read<WeatherProviderImpl>().fetchWeatherData(location: _cityName!);
       Navigator.of(context).pop(_cityName);
     }
   }

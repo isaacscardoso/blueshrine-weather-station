@@ -1,0 +1,4 @@
+enum TempScale {
+  celsius,
+  fahrenheit,
+}

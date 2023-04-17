@@ -11,12 +11,12 @@ class WeatherData extends StatefulWidget {
 }
 
 class _WeatherDataState extends State<WeatherData> {
-  late final WeatherProvider _weatherProvider;
+  late final WeatherProviderImpl _weatherProvider;
 
   @override
   void initState() {
     super.initState();
-    _weatherProvider = context.read<WeatherProvider>();
+    _weatherProvider = context.read<WeatherProviderImpl>();
     _weatherProvider.initWeatherData();
   }
 
