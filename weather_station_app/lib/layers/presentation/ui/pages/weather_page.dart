@@ -13,6 +13,8 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
+  late String? _cityName = '';
+
   _initWeather() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<WeatherProvider>();
@@ -32,7 +34,12 @@ class _WeatherPageState extends State<WeatherPage> {
         title: const Text('Weather'),
         actions: <Widget>[
           IconButton(
-            onPressed: () => navigateToPage(context, const SearchPage()),
+            onPressed: () async {
+              final name = await navigateToPage(context, const SearchPage());
+              setState(() {
+                _cityName = name;
+              });
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
@@ -41,9 +48,9 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ],
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Center(
-          child: Text('Weather Station Home Page.'),
+          child: Text('City Name: $_cityName'),
         ),
       ),
     );

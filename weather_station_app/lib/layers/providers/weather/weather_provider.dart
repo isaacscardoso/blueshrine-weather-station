@@ -45,6 +45,7 @@ class WeatherProvider with ChangeNotifier {
     try {
       final WeatherEntity weather = await repository.fetchWeather(cityName);
       _state = _state.copyWith(status: WeatherStatus.loaded, weather: weather);
+      print('City Founded: $weather');
       notifyListeners();
     } catch (error) {
       notifyListeners();

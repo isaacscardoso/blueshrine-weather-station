@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
-void navigateToPage(BuildContext context, dynamic page) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+Future<String> navigateToPage(BuildContext context, dynamic page) async {
+  return await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => page),
+  );
 }

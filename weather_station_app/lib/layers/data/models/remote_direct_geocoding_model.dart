@@ -24,7 +24,7 @@ class RemoteDirectGeocodingModel extends Equatable {
       return RemoteDirectGeocodingModel(
         name: json['name'],
         country: json['country'],
-        state: json['state'],
+        state: json['state'] ?? '',
         latitude: json['lat'],
         longitude: json['lon'],
       );
