@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/weather/weather.dart';
-import '../../providers/enums/enums.dart';
+import '../../providers/weather/enums/enums.dart';
 
 class WeatherData extends StatefulWidget {
   const WeatherData({super.key});

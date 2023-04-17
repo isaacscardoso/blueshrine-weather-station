@@ -1,11 +1,11 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../domain/repositories/repositories.dart';
 import '../../domain/entities/entities.dart';
 
-import '../enums/enums.dart';
+import './enums/enums.dart';
 
 import './iweather_provider.dart';
 
@@ -32,7 +32,6 @@ class WeatherProvider with ChangeNotifier implements IWeatherProvider {
         longitude: position.longitude,
       );
       state = state.copyWith(status: WeatherStatus.loaded, weather: weather);
-      print('State 1: $state');
       notifyListeners();
     } catch (error) {
       notifyListeners();
@@ -47,7 +46,6 @@ class WeatherProvider with ChangeNotifier implements IWeatherProvider {
     try {
       final WeatherEntity weather = await repository.fetchWeather(location);
       state = state.copyWith(status: WeatherStatus.loaded, weather: weather);
-      print('City Founded: $weather');
       notifyListeners();
     } catch (error) {
       notifyListeners();
