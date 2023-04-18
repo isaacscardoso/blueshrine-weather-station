@@ -4,13 +4,15 @@ import 'package:provider/provider.dart';
 import '../../providers/providers.dart';
 
 class TemperatureScale {
-  static double convertToFahrenheit(double temp) => (temp * (9 / 5)) + 32;
+  static double kelvinToCelsius(double temp) => (temp - 273.15);
+
+  static double kelvinToFahrenheit(double temp) => ((temp - 273.15) * (9 / 5)) + 32;
 
   static String of(BuildContext context, {required double temperature}) {
     final TempScale tempScale = context.watch<TempSettingsState>().tempScale;
     if (tempScale == TempScale.fahrenheit) {
-      return '${convertToFahrenheit(temperature).toStringAsFixed(2)}℉';
+      return '${kelvinToFahrenheit(temperature).toStringAsFixed(2)}℉';
     }
-    return '${temperature.toStringAsFixed(2)}℃';
+    return '${kelvinToCelsius(temperature).toStringAsFixed(2)}℃';
   }
 }
