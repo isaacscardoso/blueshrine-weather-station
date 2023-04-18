@@ -15,12 +15,10 @@ class WeatherData extends StatefulWidget {
 }
 
 class _WeatherDataState extends State<WeatherData> {
-  late final WeatherProviderImpl _provider;
-
   @override
   void initState() {
     super.initState();
-    _provider = context.read<WeatherProviderImpl>();
+    context.read<WeatherProviderImpl>();
   }
 
   @override
@@ -62,7 +60,7 @@ class _WeatherDataState extends State<WeatherData> {
               ),
             ],
           ),
-          const SizedBox(height: 30.0),
+          const SizedBox(height: 50.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -94,6 +92,14 @@ class _WeatherDataState extends State<WeatherData> {
                   ),
                 ],
               ),
+            ],
+          ),
+          const SizedBox(height: 40.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CustomIcon(icon: state.weather!.icon),
+              CustomText(content: state.weather!.description, fontSize: 20),
             ],
           ),
         ],
