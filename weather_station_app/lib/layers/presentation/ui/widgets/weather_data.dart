@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/providers.dart';
+import '../../../providers/weather/weather.dart';
+
 import '../../utils/utils.dart';
 import '../components/components.dart';
 
@@ -29,6 +31,11 @@ class _WeatherDataState extends State<WeatherData> {
   @override
   Widget build(BuildContext context) {
     final WeatherState state = context.watch<WeatherState>();
+    if (state.status == WeatherStatus.loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Center(
       child: Column(
         children: <Widget>[
