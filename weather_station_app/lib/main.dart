@@ -6,10 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 
 import './layers/factories/http/http.dart';
-import './layers/providers/weather/weather.dart';
-import './layers/providers/temp_settings/temp_settings.dart';
+import './layers/providers/providers.dart';
 import './layers/presentation/ui/pages/pages.dart';
-
 import './layers/data/repositories/repositories.dart';
 import './layers/data/usecases/usecases.dart';
 
@@ -47,11 +45,20 @@ class WeatherApp extends StatelessWidget {
         StateNotifierProvider<TempSettingsProviderImpl, TempSettingsState>(
           create: (context) => TempSettingsProviderImpl(),
         ),
+        StateNotifierProvider<ThemeProviderImpl, ThemeState>(
+          create: (context) => ThemeProviderImpl(),
+        ),
       ],
-      child: MaterialApp(
-        home: const WeatherPage(),
-        theme: ThemeData(primarySwatch: Colors.blue),
-      ),
+      builder: (context, _) {
+        context.read<WeatherProviderImpl>().initWeatherData();
+        return MaterialApp(
+          key: UniqueKey(),
+          home: const WeatherPage(),
+          theme: context.watch<ThemeState>().appTheme == AppTheme.light
+              ? ThemeData.light()
+              : ThemeData.dark(),
+        );
+      },
     );
   }
 }
