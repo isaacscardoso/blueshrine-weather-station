@@ -11,7 +11,8 @@ class ThemeProviderImpl extends StateNotifier<ThemeState> with LocatorMixin {
   void update(Locator watch) {
     final WeatherEntity? weather = watch<WeatherState>().weather;
     if (weather != null) {
-      if (weather.temperature > 20) {
+      final double temp = weather.temperature - 273.15;
+      if (temp >= 20.0) {
         state = state.copyWith(appTheme: AppTheme.light);
       } else {
         state = state.copyWith(appTheme: AppTheme.dark);

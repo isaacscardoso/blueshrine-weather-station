@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                     hintText: 'city name...',
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                   ),
                   validator: (value) => SearchFormularyValidator.verify(value),
@@ -72,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(14.0),
                       ),
                     ),
                   ),
